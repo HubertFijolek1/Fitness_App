@@ -2,10 +2,10 @@ Django>=3.2
 psycopg2-binary
 djangorestframework
 djangorestframework-simplejwt
-python-dotenv
-pytest
-pytest-django
 drf-yasg
-Pillow
 django-storages
 boto3
+Pillow
+pytest
+pytest-django
+python-dotenv

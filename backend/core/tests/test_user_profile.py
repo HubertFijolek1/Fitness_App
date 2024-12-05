@@ -15,6 +15,7 @@ def test_user_profile_detail():
     response = client.get(url)
     assert response.status_code == 200
     assert response.data['user'] == 'testuser'
+    assert response.data['bio'] == ''
 
 @pytest.mark.django_db
 def test_user_profile_update():

@@ -17,10 +17,13 @@ def test_register_user():
     response = client.post(url, data)
     assert response.status_code == 201
     assert User.objects.count() == 1
+    user = User.objects.first()
+    assert user.username == 'testuser'
+    assert user.email == 'testuser@example.com'
 
 @pytest.mark.django_db
 def test_login_user():
-    User.objects.create_user(username='testuser', password='testpassword123')
+    user = User.objects.create_user(username='testuser', password='testpassword123')
     client = APIClient()
     url = reverse('token_obtain_pair')
     data = {
