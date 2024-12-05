@@ -5,3 +5,4 @@ djangorestframework-simplejwt
 python-dotenv
 pytest
 pytest-django
+drf-yasg
