@@ -1,46 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import api from '../api/api';
+import { Link } from 'react-router-dom';
 
 function Profile() {
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
-    api
-      .get('/profile/', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
-      })
+    api.get('/profile/')
       .then((response) => {
         setProfile(response.data);
       })
       .catch((error) => {
         console.error(error);
+        alert('Failed to fetch profile. Please login.');
       });
   }, []);
 
-  if (!profile) return <div>Loading...</div>;
+  if (!profile) return <div className="container mx-auto p-4">Loading...</div>;
 
   return (
-      <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
-          <div className="md:flex">
-              {profile.avatar && (
-                  <div className="md:flex-shrink-0">
-                      <img
-                          className="h-48 w-full object-cover md:w-48"
-                          src={profile.avatar}
-                          alt="User avatar"
-                      />
-                  </div>
-              )}
-              <div className="p-8">
-                  <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
-                      {profile.user}
-                  </div>
-                  <p className="mt-2 text-gray-500">{profile.bio}</p>
-              </div>
-          </div>
+    <div className="container mx-auto p-4 max-w-md">
+      <h1 className="text-2xl font-bold">{profile.user}'s Profile</h1>
+      <div className="mt-4">
+        {profile.avatar && (
+          <img src={profile.avatar} alt="Avatar" className="w-32 h-32 rounded-full" />
+        )}
+        <p className="mt-2">{profile.bio}</p>
       </div>
+      <Link to="/profile/edit" className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded">
+        Edit Profile
+      </Link>
+    </div>
   );
 }
 

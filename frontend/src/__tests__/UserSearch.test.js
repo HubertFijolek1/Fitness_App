@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import UserSearch from '../components/UserSearch';
 import api from '../api/api';
+import { BrowserRouter } from 'react-router-dom';
 
 jest.mock('../api/api');
 
@@ -13,9 +14,13 @@ test('searches and displays user results', async () => {
 
   api.get.mockResolvedValue({ data: users });
 
-  render(<UserSearch />);
+  render(
+    <BrowserRouter>
+      <UserSearch />
+    </BrowserRouter>
+  );
 
-  const input = screen.getByRole('textbox');
+  const input = screen.getByPlaceholderText('Enter username or email');
   fireEvent.change(input, { target: { value: 'test' } });
 
   const button = screen.getByText('Search');
