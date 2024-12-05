@@ -22,13 +22,25 @@ function Profile() {
   if (!profile) return <div>Loading...</div>;
 
   return (
-    <div className="container mx-auto p-4">
-      <h1>{profile.user}'s Profile</h1>
-      {profile.avatar && (
-        <img src={profile.avatar} alt="Avatar" className="w-32 h-32 rounded-full" />
-      )}
-      <p>{profile.bio}</p>
-    </div>
+      <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+          <div className="md:flex">
+              {profile.avatar && (
+                  <div className="md:flex-shrink-0">
+                      <img
+                          className="h-48 w-full object-cover md:w-48"
+                          src={profile.avatar}
+                          alt="User avatar"
+                      />
+                  </div>
+              )}
+              <div className="p-8">
+                  <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
+                      {profile.user}
+                  </div>
+                  <p className="mt-2 text-gray-500">{profile.bio}</p>
+              </div>
+          </div>
+      </div>
   );
 }
 
