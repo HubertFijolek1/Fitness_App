@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
+from .models import UserProfile
 
 User = get_user_model()
 
@@ -17,3 +18,18 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             password=validated_data['password']
         )
         return user
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(read_only=True)
+    avatar = serializers.ImageField(allow_empty_file=True, required=False)
+
+    class Meta:
+        model = UserProfile
+        fields = ['user', 'avatar', 'bio']
+
+    def update(self, instance, validated_data):
+        instance.bio = validated_data.get('bio', instance.bio)
+        if 'avatar' in validated_data:
+            instance.avatar = validated_data['avatar']
+        instance.save()
+        return instance
