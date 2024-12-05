@@ -4,6 +4,7 @@ import Home from './components/Home';
 import Register from './components/Register';
 import Login from './components/Login';
 import Profile from './components/Profile';
+import ProfileEdit from './components/ProfileEdit';
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
             <Route path="/profile" component={Profile} />
+          <Route path="/profile/edit" component={ProfileEdit} />
+
           {/* Additional routes */}
         </Switch>
       </div>
