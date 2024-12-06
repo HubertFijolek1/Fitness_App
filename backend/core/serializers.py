@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from .models import UserProfile
+from .models import UserProfile, Exercise
 
 User = get_user_model()
 
@@ -33,3 +33,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
             instance.avatar = validated_data['avatar']
         instance.save()
         return instance
+
+class ExerciseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Exercise
+        fields = ['id', 'exercise_type', 'duration_minutes', 'sets', 'reps', 'date']
+        read_only_fields = ['id']

@@ -1,7 +1,7 @@
-from rest_framework import generics, filters
+from rest_framework import generics, filters, permissions
 from rest_framework.permissions import IsAuthenticated
 from .models import UserProfile
-from .serializers import UserRegistrationSerializer, UserProfileSerializer
+from .serializers import UserRegistrationSerializer, UserProfileSerializer, ExerciseSerializer
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
@@ -30,3 +30,10 @@ class UserListView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     filter_backends = [filters.SearchFilter]
     search_fields = ['username', 'email']
+
+class ExerciseCreateView(generics.CreateAPIView):
+    serializer_class = ExerciseSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
