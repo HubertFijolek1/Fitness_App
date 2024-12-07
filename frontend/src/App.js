@@ -6,6 +6,8 @@ import Login from './components/Login';
 import Profile from './components/Profile';
 import ProfileEdit from './components/ProfileEdit';
 import UserSearch from './components/UserSearch';
+import ExercisesPage from './components/ExercisesPage';
+
 
 function App() {
   return (
@@ -33,7 +35,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/edit" element={<ProfileEdit />} />
           <Route path="/search" element={<UserSearch />} />
-          {/* Add more routes as needed */}
+          <Route path="/exercises" element={<ExercisesPage />} />
         </Routes>
       </div>
     </Router>
@@ -41,3 +43,4 @@ function App() {
 }
 
 export default App;
+
