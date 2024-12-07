@@ -1,9 +1,10 @@
-from rest_framework import generics, filters, permissions
+from rest_framework import generics, filters, permissions, mixins
 from rest_framework.permissions import IsAuthenticated
 from .models import UserProfile, Exercise
 from .serializers import UserRegistrationSerializer, UserProfileSerializer, ExerciseSerializer
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
 
 User = get_user_model()
 
@@ -44,3 +45,10 @@ class ExerciseListView(generics.ListAPIView):
 
     def get_queryset(self):
         return Exercise.objects.filter(user=self.request.user).order_by('-date')
+
+class ExerciseUpdateView(generics.RetrieveUpdateAPIView):
+    serializer_class = ExerciseSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Exercise.objects.filter(user=self.request.user)
