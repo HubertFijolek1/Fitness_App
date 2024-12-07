@@ -52,3 +52,10 @@ class ExerciseUpdateView(generics.RetrieveUpdateAPIView):
 
     def get_queryset(self):
         return Exercise.objects.filter(user=self.request.user)
+
+class ExerciseDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ExerciseSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Exercise.objects.filter(user=self.request.user)

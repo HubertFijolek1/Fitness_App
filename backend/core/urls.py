@@ -6,7 +6,8 @@ from .views import (
     UserListView,
     ExerciseCreateView,
     ExerciseListView,
-    ExerciseUpdateView
+    ExerciseUpdateView,
+    ExerciseDetailView
 )
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
@@ -20,5 +21,6 @@ urlpatterns = [
     path('exercises/', ExerciseCreateView.as_view(), name='exercise-create'),
     path('exercises/list/', ExerciseListView.as_view(), name='exercise-list'),
     path('exercises/<int:pk>/', ExerciseUpdateView.as_view(), name='exercise-update'),
+    path('exercises/<int:pk>/', ExerciseDetailView.as_view(), name='exercise-detail'),
 
 ]
