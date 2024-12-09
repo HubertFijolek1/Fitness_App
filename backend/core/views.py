@@ -51,6 +51,10 @@ class ExerciseListView(generics.ListAPIView):
             from django.utils.timezone import now, timedelta
             start_date = now().date() - timedelta(days=7)
             qs = qs.filter(date__gte=start_date)
+        if date_range == 'month':
+            from django.utils.timezone import now, timedelta
+            start_date = now().date().replace(day=1)  # beginning of current month
+            qs = qs.filter(date__gte=start_date)
         return qs.order_by('-date')
 
 
