@@ -44,7 +44,15 @@ class ExerciseListView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        return Exercise.objects.filter(user=self.request.user).order_by('-date')
+        qs = Exercise.objects.filter(user=self.request.user)
+        # If we had a query param like ?range=week, filter last 7 days:
+        date_range = self.request.query_params.get('range')
+        if date_range == 'week':
+            from django.utils.timezone import now, timedelta
+            start_date = now().date() - timedelta(days=7)
+            qs = qs.filter(date__gte=start_date)
+        return qs.order_by('-date')
+
 
 class ExerciseUpdateView(generics.RetrieveUpdateAPIView):
     serializer_class = ExerciseSerializer
